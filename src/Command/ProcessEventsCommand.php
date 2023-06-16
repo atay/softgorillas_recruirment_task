@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Application\Event\EventFactoryInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,6 +17,16 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ProcessEventsCommand extends Command
 {
+
+    private EventFactoryInterface $eventFactory;
+
+    public function __construct(EventFactoryInterface $eventFactory)
+    {
+        parent::__construct();
+        $this->eventFactory = $eventFactory;
+    }
+
+
     protected function configure(): void
     {
         $this
@@ -36,6 +47,15 @@ class ProcessEventsCommand extends Command
         $io->writeln('Event Source: ' . $eventSource);
         $io->writeln('Inspection: ' . $inspection);
         $io->writeln('Failure Report: ' . $failureReport);
+
+        $jsonData = file_get_contents($eventSource);
+        $data = json_decode($jsonData, true);
+
+        foreach ($data as $row) {
+            $event = $this->eventFactory->createEvent($row);
+            $io->writeln('Event: ' . $event->getDescription());
+        }
+
 
         // 2DO write a service
 
