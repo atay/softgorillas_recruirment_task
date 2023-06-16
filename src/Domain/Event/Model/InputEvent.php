@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Events;
+namespace App\Domain\Event\Model;
 
-class Event
+class InputEvent
 {
     public function __construct(
         private int $number,

@@ -1,0 +1,167 @@
+[
+    {
+        "number": 1,
+        "phone": "",
+        "description": "Awaria klimatyzacji. Na salonie temperatura wzros\u0142a do 27 stopni. Pozdrawiam Ela.",
+        "date": "2020-01-04 13:30:00",
+        "type": "failure",
+        "weekOfYear": 1,
+        "status": "planned",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 2,
+        "phone": "\"",
+        "description": "Pro\u015bba o wizyt\u0119    ",
+        "date": "2020-01-07 00:30:11",
+        "type": "failure",
+        "weekOfYear": 2,
+        "status": "planned",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 3,
+        "phone": "4",
+        "description": "Ciekn\u0105cy kran na zapleczu. Mokre buty!",
+        "date": "2020-02-01 04:32:00",
+        "type": "failure",
+        "weekOfYear": 5,
+        "status": "planned",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 4,
+        "phone": "666-445-127",
+        "description": " Odpada tynk mi\u0119dzy szaf\u0105, rega\u0142em a witryn\u0105, prosz\u0119 o doklejenie go.",
+        "date": "2020-02-03 15:15:00",
+        "type": "failure",
+        "weekOfYear": 6,
+        "status": "planned",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 5,
+        "phone": "888000128",
+        "description": "Przegl\u0105d zaplanowany na luty. Prosze spojrze\u0107 te\u017c do rozdzielni. ",
+        "date": "2020-02-05 00:00:00",
+        "type": "failure",
+        "weekOfYear": 6,
+        "status": "planned",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 7,
+        "phone": "668-221-777",
+        "description": "Awaria! Awaria pompy g\u0142\u0119binowej w na basenie dla go\u015bci VIP. Nie ma czasu prosz\u0119 w tej chwili przyjecha\u0107.",
+        "date": null,
+        "type": "failure",
+        "weekOfYear": null,
+        "status": "new",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 9,
+        "phone": "",
+        "description": "Klima nie ch\u0142odzi, tylko grzeje, nie jestem z tego powodu zadowolona.",
+        "date": null,
+        "type": "failure",
+        "weekOfYear": null,
+        "status": "new",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 11,
+        "phone": "",
+        "description": "Pro\u015bba o wizyt\u0119    ",
+        "date": "2020-02-23 00:00:00",
+        "type": "failure",
+        "weekOfYear": 8,
+        "status": "planned",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 12,
+        "phone": "876123567",
+        "description": "Bardzo pilne. Prosz\u0119 o interwencj\u0119 serwisu, ch\u0142odziarki w dziale mi\u0119so dzia\u0142aj\u0105 jak chc\u0105, tzn. dzia\u0142aj\u0105 albo nie dzia\u0142aj\u0105.",
+        "date": "2020-03-01 00:00:00",
+        "type": "failure",
+        "weekOfYear": 9,
+        "status": "planned",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 13,
+        "phone": "873322976",
+        "description": "Sprawa jest dos\u0107 pilna poniewa\u017c mamy wyciek wody lodowej przy samym suficie, w rogu. Prosz\u0119 o wizyt\u0119!",
+        "date": "2020-03-02 00:00:00",
+        "type": "failure",
+        "weekOfYear": 10,
+        "status": "planned",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 14,
+        "phone": "",
+        "description": "Awaria kot\u0142a w g\u0142ownym pomieszczeniu magazynowym.",
+        "date": null,
+        "type": "failure",
+        "weekOfYear": null,
+        "status": "new",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 15,
+        "phone": "888241636",
+        "description": "Krajalnice mi\u0119so. Nie dzia\u0142a tarczka g\u0142\u00f3wnej maszyny bardzo pilne.",
+        "date": null,
+        "type": "failure",
+        "weekOfYear": null,
+        "status": "new",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 16,
+        "phone": "",
+        "description": "Awaria kot\u0142a w g\u0142ownym pomieszczeniu magazynowym.",
+        "date": null,
+        "type": "failure",
+        "weekOfYear": null,
+        "status": "new",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 19,
+        "phone": null,
+        "description": "Brak internetu w pomieszczeniu pracowniczym, nie wiem mo\u017ce kto\u015b urwa\u0142 od internetu kabel.",
+        "date": null,
+        "type": "failure",
+        "weekOfYear": null,
+        "status": "new",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 20,
+        "phone": "567-124-572",
+        "description": "pRosimy o natychmiastoO0wy Przgl\u0105d wuzk\u00f3w wid\u0142owych, wydaje sie ze cos z nNIch wYCIEKa",
+        "date": "2020-04-01 00:00:00",
+        "type": "failure",
+        "weekOfYear": 14,
+        "status": "planned",
+        "recommendation": null,
+        "createdAt": "2023-06-16 17:29:05"
+    }
+]

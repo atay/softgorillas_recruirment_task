@@ -1,11 +1,13 @@
 <?php
 
-use App\Domain\Exceptions\InvalidEventException;
+use App\Application\Event\InputEventFactory;
+use App\Domain\Event\Model\InputEvent;
+use App\Domain\Exception\MissingDescriptionException;
+use App\Domain\Exception\MissingNumberException;
 use PHPUnit\Framework\TestCase;
-use App\Application\Event\EventFactory;
-use App\Domain\Events\Event;
+use App\Domain\Event\Model\Event;
 
-class EventFactoryTest extends TestCase
+class InputEventFactoryTest extends TestCase
 {
     public function testCreateEventHappyPath()
     {
@@ -16,10 +18,10 @@ class EventFactoryTest extends TestCase
             'phone' => '1234567890'
         ];
 
-        $eventFactory = new EventFactory();
+        $eventFactory = new InputEventFactory();
         $event = $eventFactory->createEvent($eventSource);
 
-        $this->assertInstanceOf(Event::class, $event);
+        $this->assertInstanceOf(InputEvent::class, $event);
         $this->assertEquals('123', $event->getNumber());
         $this->assertEquals('Test event', $event->getDescription());
         $this->assertEquals('2022-01-01', $event->getDueDate());
@@ -35,10 +37,10 @@ class EventFactoryTest extends TestCase
             'phone' => '1234567890'
         ];
 
-        $eventFactory = new EventFactory();
+        $eventFactory = new InputEventFactory();
         $event = $eventFactory->createEvent($eventSource);
 
-        $this->assertInstanceOf(Event::class, $event);
+        $this->assertInstanceOf(InputEvent::class, $event);
         $this->assertEquals(null, $event->getDueDate());
     }
 
@@ -51,10 +53,10 @@ class EventFactoryTest extends TestCase
             'phone' => null
         ];
 
-        $eventFactory = new EventFactory();
+        $eventFactory = new InputEventFactory();
         $event = $eventFactory->createEvent($eventSource);
 
-        $this->assertInstanceOf(Event::class, $event);
+        $this->assertInstanceOf(InputEvent::class, $event);
         $this->assertEquals(null, $event->getPhone());
     }
 
@@ -66,9 +68,9 @@ class EventFactoryTest extends TestCase
             'phone' => '1234567890'
         ];
 
-        $this->expectException(InvalidEventException::class);
+        $this->expectException(MissingNumberException::class);
 
-        $eventFactory = new EventFactory();
+        $eventFactory = new InputEventFactory();
         $eventFactory->createEvent($eventSource);
     }
 
@@ -80,9 +82,9 @@ class EventFactoryTest extends TestCase
             'phone' => '1234567890'
         ];
 
-        $this->expectException(InvalidEventException::class);
+        $this->expectException(MissingDescriptionException::class);
 
-        $eventFactory = new EventFactory();
+        $eventFactory = new InputEventFactory();
         $eventFactory->createEvent($eventSource);
     }
 }

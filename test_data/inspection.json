@@ -1,0 +1,47 @@
+[
+    {
+        "number": 6,
+        "description": "Witam dzie\u0144 dobry, mam spraw\u0119, zg\u0142asza\u0142am ostatnio awari\u0119, ale teraz chcia\u0142a bym przegl\u0105d, prosz\u0119 przyjecha\u0107 przegl\u0105dn\u0105\u0107 klimakonwektory.",
+        "dueDate": null,
+        "clientPhoneNumber": "668-221-777",
+        "type": "inspection",
+        "status": "new",
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 8,
+        "description": "Prosz\u0119 przyjecha\u0107 na przegl\u0105d instalacji elektrycznej dnia 15 lutego.",
+        "dueDate": "2020-02-15 00:00:00",
+        "clientPhoneNumber": "+48606303404",
+        "type": "inspection",
+        "status": "planned",
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 10,
+        "description": "Czy Panowie mog\u0105 zjawi\u0107 si\u0119 na ponowny przegl\u0105d rur kanalizacyjnych? Mamy tu ma\u0142y problem z zapachem.",
+        "dueDate": "2020-02-22 00:00:00",
+        "clientPhoneNumber": "+48701145976",
+        "type": "inspection",
+        "status": "planned",
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 17,
+        "description": "Mam na pan\u00f3w z\u0142\u0105 wiadomo\u015b\u0107. Zapraszam na ponowny przegl\u0105d maty zabezpieczaj\u0105cej w meblu kasowym. Ostatnio by\u0142 a sprz\u0119t niestety nie dzia\u0142a, pilne!",
+        "dueDate": "2020-03-02 00:00:00",
+        "clientPhoneNumber": "+48505167301",
+        "type": "inspection",
+        "status": "planned",
+        "createdAt": "2023-06-16 17:29:05"
+    },
+    {
+        "number": 18,
+        "description": "My\u015bl\u0119 \u017ce ju\u017c czas pomy\u015ble\u0107 o ponownym przegl\u0105dzie klimatyzacji na sali sprzeda\u017cy.Bardzo pilne to nie jest ale, POTRZEBNE!",
+        "dueDate": null,
+        "clientPhoneNumber": "506 482 179",
+        "type": "inspection",
+        "status": "new",
+        "createdAt": "2023-06-16 17:29:05"
+    }
+]

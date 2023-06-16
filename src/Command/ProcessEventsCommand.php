@@ -2,7 +2,15 @@
 
 namespace App\Command;
 
-use App\Application\Event\EventFactoryInterface;
+use App\Application\Event\Converter\FailureConverter;
+use App\Application\Event\Converter\FailureConverterInterface;
+use App\Application\Event\Converter\InspectionConverter;
+use App\Application\Event\Converter\InspectionConverterInterface;
+use App\Application\Event\InputEventFactoryInterface;
+use App\Domain\Event\Factory\FailureFactory;
+use App\Domain\Event\Factory\InspectionFactory;
+use App\Domain\Event\Strategy\EventRecognizeStrategy;
+use App\Domain\Exception\WrongDataException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -18,12 +26,15 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ProcessEventsCommand extends Command
 {
 
-    private EventFactoryInterface $eventFactory;
-
-    public function __construct(EventFactoryInterface $eventFactory)
-    {
+    public function __construct(
+        private InputEventFactoryInterface $eventFactory,
+        private EventRecognizeStrategy $eventRecognizeStrategy,
+        private FailureFactory $failureFactory,
+        private InspectionFactory $inspectionFactory,
+        private FailureConverterInterface $failureConverter,
+        private InspectionConverterInterface $inspectionConverter,
+    ) {
         parent::__construct();
-        $this->eventFactory = $eventFactory;
     }
 
 
@@ -40,26 +51,86 @@ class ProcessEventsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $eventSource = $input->getArgument('event-source');
-        $inspection = $input->getOption('outInspection');
-        $failureReport = $input->getOption('outFailureReport');
+        $eventSourcePath = $input->getArgument('event-source');
+        if (!file_exists($eventSourcePath)) {
+            $io->error('Event source file does not exist');
+            return Command::FAILURE;
+        }
 
-        $io->writeln('Event Source: ' . $eventSource);
-        $io->writeln('Inspection: ' . $inspection);
-        $io->writeln('Failure Report: ' . $failureReport);
+        $inspectionPath = $input->getOption('outInspection');
+        if ($inspectionPath && !is_writable(dirname($inspectionPath))) {
+            $io->error('Inspection file path is not writable');
+            return Command::FAILURE;
+        }
 
-        $jsonData = file_get_contents($eventSource);
-        $data = json_decode($jsonData, true);
-
-        foreach ($data as $row) {
-            $event = $this->eventFactory->createEvent($row);
-            $io->writeln('Event: ' . $event->getDescription());
+        $failureReportPath = $input->getOption('outFailureReport');
+        if ($failureReportPath && !is_writable(dirname($failureReportPath))) {
+            $io->error('Failure report file path is not writable');
+            return Command::FAILURE;
         }
 
 
-        // 2DO write a service
+        $io->writeln('Event Source: ' . $eventSourcePath);
+        $io->writeln('Inspection: ' . $inspectionPath);
+        $io->writeln('Failure Report: ' . $failureReportPath);
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $failures = [];
+        $inspections = [];
+        $failedCount = 0;
+
+        $jsonData = file_get_contents($eventSourcePath);
+        $data = json_decode($jsonData, true);
+
+        foreach ($data as $row) {
+            try {
+                $inputEvent = $this->eventFactory->createEvent($row);
+                $io->write('Processing event: ' . $inputEvent->getNumber());
+            } catch (WrongDataException $e) {
+                $io->error($e->getMessage());
+                $failedCount++;
+                continue;
+            }
+            $eventType = $this->eventRecognizeStrategy->getEventType($inputEvent);
+
+            $io->writeln(', event type is: ' . $eventType->value);
+            if ($eventType === $eventType::INSPECTION) {
+                $inspection = $this->inspectionFactory->create($inputEvent);
+                $inspections[] = $inspection;
+            } elseif ($eventType === $eventType::FAILURE) {
+                $failureReport = $this->failureFactory->create($inputEvent);
+                $failures[] = $failureReport;
+            }
+        }
+
+        if ($inspectionPath) {
+            $inspectionsDTO = [];
+            foreach ($inspections as $inspection) {
+                $inspectionsDTO[] = $this->inspectionConverter->convert($inspection);
+            }
+            $jsonData = json_encode($inspectionsDTO, JSON_PRETTY_PRINT);
+            if (file_put_contents($inspectionPath, $jsonData) === false) {
+                $io->error('Failed to write inspection file');
+            }
+        }
+
+        if ($failureReportPath) {
+            $failuresDTO = [];
+            foreach ($failures as $failure) {
+                $failuresDTO[] = $this->failureConverter->convert($failure);
+            }
+            $jsonData = json_encode($failuresDTO, JSON_PRETTY_PRINT);
+            if (file_put_contents($failureReportPath, $jsonData) === false) {
+                $io->error('Failed to write failure report file');
+            }
+        }
+
+
+        $io->success('File was processed');
+        $io->success('Inspections: ' . count($inspections));
+        $io->success('Failures: ' . count($failures));
+
+        $io->info('Failed during processing: ' . $failedCount);
+
 
         return Command::SUCCESS;
     }
